@@ -1,0 +1,242 @@
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class Final {
+
+    public static void main(String[] args) throws SQLException {
+
+        Scanner input = new Scanner(System.in);
+         int x = 0;
+        int y = 0;
+        while(x != -1) {
+            System.out.println("What would you like to do ?");
+            System.out.println("1: Create a Bill ");
+            System.out.println("2: View records");
+            System.out.println("3: Edit record");
+            System.out.println("4: Delete a record");
+            System.out.println("5: Do Math");
+            System.out.println("6: Create new database");
+            System.out.println("-1 to quit");
+            x = input.nextInt();
+            if (x == 1)
+                sql.insert();
+
+            if (x == 2)
+                sql.view();
+
+            if (x == 3) {
+                System.out.println("Edit amount or edit name? (1 for amount or 2 for name) ");
+                y = input.nextInt();
+                if (y == 1)
+                    sql.editAmount();
+                else
+                    sql.editName();
+            }
+
+            if(x == 4)
+               sql.delete();
+
+            if(x == 5)
+                sql.doMath();
+
+            if(x == 6){
+                sql.create();
+            }
+
+        }
+    }
+}
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class sql {
+
+    final static String url = "jdbc:mysql://localhost:3306/bills";
+    final static String uname = "root";
+    final static String pass = "LtDang3314!";
+    final static Scanner input = new Scanner(System.in);
+    final static Scanner inputTWO = new Scanner(System.in);
+
+    /// *** INSERT RECORDS ***
+    static void insert() throws SQLException {
+        Connection connection = DriverManager.getConnection(url, uname, pass);
+        System.out.println("Connection Established!");
+        System.out.println("Enter bill name ");
+        String bill = inputTWO.nextLine();
+        System.out.println("You said " + bill + " What is the amount of the " + bill + "bill");
+        int amount = input.nextInt();
+        System.out.println("Enter bill ID # for " + bill + " With the amount of " + amount);
+        int ID = input.nextInt();
+        System.out.println("Would you like to insert bill ID " + ID + " into database? (1 for yes and 2 for no)");
+        System.out.println(bill + amount);
+        int i = input.nextInt();
+
+        if (i == 1) {
+            String sql = "insert into names "
+                    + " ( billsID, bills, amounts)" + " values (?,?,?)";
+
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, ID);
+            statement.setString(2, bill);
+            statement.setInt(3, amount);
+            statement.executeUpdate();
+
+        }
+        sql.view();
+        System.out.println("Would you like to enter more bills? (1 for yes and 2 for no) ");
+        int x = input.nextInt();
+        if (x == 1) {
+            sql.insert();
+        } else {
+
+        }
+
+
+    }
+
+
+    static void delete() throws SQLException {
+
+        Connection connection = DriverManager.getConnection(url, uname, pass);
+
+        int y = 0;
+        while (y != -1) {
+            System.out.println("Which record will be deleted ? (-1 to quit) ");
+            System.out.println("");
+            sql.view();
+            y = input.nextInt();
+
+            String sql = "DELETE FROM names " +
+                    " WHERE billsID = " + "(?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, + y);
+            statement.executeUpdate();
+        }
+        connection.close();
+
+    }
+
+    static void editAmount()throws SQLException {
+        int y = 0;
+        Connection connection = DriverManager.getConnection(url, uname, pass);
+        sql.view();
+        System.out.println("Which record do you want to edit? (-1 to quit)");
+        int ID = input.nextInt();
+        System.out.println("What amount will it be changed to? ");
+        int amount = input.nextInt();
+
+        String sql = "UPDATE names " +
+                "SET amounts = (?) WHERE billsID in (?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, amount);
+        statement.setInt(2, ID);
+        statement.executeUpdate();
+    }
+
+
+    static void editName() throws SQLException  {
+        Connection connection = DriverManager.getConnection(url, uname, pass);
+        sql.view();
+        System.out.println("Which record do you want to edit? ");
+        int ID = input.nextInt();
+        System.out.println("What will the name be? ");
+        String name = inputTWO.nextLine();
+
+        String sql = "UPDATE names " +
+                "SET bills = (?) WHERE billsID in (?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1,name);
+        statement.setInt(2,ID);
+        statement.executeUpdate();
+    }
+
+
+    /// *** VIEW RECORDS ****
+    static void view() throws SQLException {
+        Connection connection = DriverManager.getConnection(url, uname, pass);
+
+        String sql = "SELECT billsID, bills, amounts FROM names";
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        while (rs.next()) {
+            int id = rs.getInt("billsID");
+            String bills = rs.getString("bills");
+            int amounts = rs.getInt("amounts");
+
+
+            System.out.print("ID: " + id);
+            System.out.print(", Bill: " + bills);
+            System.out.println(", Its amount is: " + amounts);
+        }
+
+    }
+
+    static void doMath() throws SQLException {
+        sql.view();
+        Connection connection = DriverManager.getConnection(url, uname, pass);
+        String sql = "SELECT billsID, bills, amounts FROM names";
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        ArrayList<Integer> amounts = new ArrayList<>();
+        while (rs.next()) {
+            int amountOne = rs.getInt("amounts");
+            amounts.add(amountOne);
+        }
+
+        System.out.println("What is your net income for one week? ");
+        double income = input.nextInt();
+        income *= 4;
+
+       double  sum = 0;
+        for(int x: amounts){
+            sum += x;
+        }
+
+
+        double equals = (income - sum) / 4;
+
+        System.out.println("All bills add up to the amount of " + sum);
+        System.out.println("You said your income per week times 4 weeks is " + income);
+        System.out.println("Income minus bills is " +  (income - sum));
+        System.out.println("Average income divided by 4 weeks is " + equals);
+
+    }
+
+    static void create() throws SQLException{
+        Connection connection = DriverManager.getConnection(url, uname, pass);
+        System.out.println("Enter name of database ");
+        String name = inputTWO.nextLine();
+        String sql = "CREATE DATABASE (?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1,name);
+        statement.executeLargeUpdate();
+
+        System.out.println("Database " + name + " created ");
+        System.out.println("What is name of new table ");
+        String table = inputTWO.nextLine();
+        String sqltable = "CREATE TABLE (?) " +
+                "(billsID INTEGER not NULL, " +
+                " bills VARCHAR(255), " +
+                " amounts INTEGER, ";
+
+        PreparedStatement statementtable = connection.prepareStatement(sqltable);
+        statementtable.executeUpdate();
+
+
+
+
+
+
+
+
+    }
+}
+
