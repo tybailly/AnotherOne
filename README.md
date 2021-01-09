@@ -1,4 +1,4 @@
 # Projects 
 College Projects 
 
-//  I am new to this website, still trying to figure it all out.....Thats it.
+//  I am new to this website, i will be adding to this repository on the daily, thanks for visiting. 
