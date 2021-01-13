@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+	int distance;
+	double packageWeight, rate, shippingCost;
+
+//Tyler Bailly
+//October 15th, 2019
+//This program will calculate the shipping rate once the user has inputed the weight and distance traveling of their package
+
+	printf("Enter package weight in pounds please \n");
+	scanf_s("%lf", &packageWeight);
+	printf("Enter distance in miles please \n");
+	scanf_s("%i", &distance);
+
+	if (packageWeight > 50) {
+		printf("Sorry, your package weight exceeds the max weight allowed which is 50ibs \n");
+	}
+	else {
+		// calculate shipping rate per 500 mile segment
+		if (packageWeight <= 10.0)
+			rate = 3.0;
+		else
+			rate = 5.0;
+
+		if (distance % 500 == 0)
+			shippingCost = distance / 500 * rate;
+		else
+			shippingCost = (distance / 500 + 1) * rate;
+
+		if (distance > 1000)
+			shippingCost = shippingCost + 10;
+
+		printf("The total shipping cost is %.2lf \n", shippingCost);
+	}
+	system("pause");
+}        
+
+
