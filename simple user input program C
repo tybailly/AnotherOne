@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+
+	int highN = 0, lowN = 0, count = 0, number;
+	double average = 0;
+	
+
+	//user enters integer
+
+	printf("Enter integer, -1 to end \n");
+	scanf_s("%i", &number);
+
+	// to give these variables a value to start
+	highN = number;
+	lowN = number;
+
+	while (number != -1) {
+		++count;
+		average += number;
+
+		//count will not count numbers equal to or less than 0
+		if (number <= 0) {
+			printf("Sorry, integer must be more than 0 \n");
+			count--;
+		}
+
+		// resets value and re-evaluates variable
+		if (number > highN) {
+			highN = number;
+		}
+
+		if (number < lowN) {
+			lowN = number;
+		}
+
+		printf("Enter integer, -1 to end \n");
+		scanf_s("%i", &number);
+		
+	}
+	
+	average = average / count;
+
+	printf("Number of integers entered was %i \n", count);
+	printf("The average of the integers entered was %.2lf \n", average);
+	printf("The highest integer entered was %i \n", highN);
+	printf("The lowest integer entered was %i \n", lowN);
+}
+
