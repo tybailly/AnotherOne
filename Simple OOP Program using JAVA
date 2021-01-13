@@ -1,0 +1,136 @@
+import java.util.Scanner;           /// NAME: Tyler Bailly      Date:03/03/2020
+
+//This program creates 2 classes, one for a person, and one for the details of that person, and the main method
+// outputs the results
+
+public class Hello {
+
+    public static void main(String[] args) {   // Main Method
+
+
+        Scanner THIS = new Scanner(System.in);
+
+
+        Name one = new Name("Pam","Jim","Beasley"); // Name #1
+        Name two = new Name("Dan","The","Man"); // Name #2
+        Name three = new Name("Ricky","Thaman","Bobby"); // Name #3
+
+        Details pjb = new Details(40000, 28, "Pam","Female"); // Name #1 Details ** (Variable are initials of person's)
+        Details dtm = new Details(120000, 45, "Dan","Male"); // Name #2 Details **(Variable are initials of person's)
+        Details rtb = new Details(84000,30,"Ricky","Male"); // Name #3 Details ** (Variable are initials of person's)
+
+
+        // results output onto Console
+
+        System.out.println(one);
+        System.out.println(two);
+        System.out.println(three);
+        System.out.println(pjb);
+        System.out.println(dtm);
+        System.out.println(rtb);
+        
+        
+   public class Name {    // Class defining each person
+    private  String f_name, m_name,l_name;
+
+    public Name(String F, String M, String L) {  // Integers declared for parameters on "Hello.java"
+        f_name = F;
+        m_name = M;
+        l_name = L;
+    }
+
+    public String getfirst_name() { //Getter
+        return f_name;
+    }
+
+    public void setfirst_name(String f_name) { //Setter
+        this.f_name = f_name;
+    }
+
+    public String getmiddle_name() { //Getter
+        return m_name;
+    }
+
+    public void setmiddle_name(String m_name) { // Setter
+        this.m_name = m_name;
+    }
+
+    public String getlast_name() { // Getter
+        return l_name;
+    }
+
+    public void setlast_name(String l_name) { // Setter
+        this.l_name = l_name;
+    }
+
+    public String toString() {  // toString which output specific results in string format
+        String Full_name = f_name +  " " + m_name + " " + l_name ;
+
+        return Full_name;
+    }
+
+}
+
+
+public class Details {   // Class defining details of person
+    private String name, gender;
+    private int age, salary;
+
+    public Details(int S, int A, String N, String G) {  // Integers declared for parameters on "Hello.java"
+        name = N;
+        age = A;
+        salary = S;
+        gender = G;
+    }
+
+    public int getSalary() { // Getter
+        return salary;
+    }
+
+    public void setSalary(int S) { // Setter
+        salary = S;
+        if (salary > 0) { //(FIX ME, as i will not work for some reason)
+            this.salary = S;
+        }
+    }
+
+    public int getAge() { // Getter
+        return age;
+    }
+
+    public void setAge(int A) { // Setter
+        if (A > 1 && A < 120) { // (FIX ME, as i will not work for some reason)
+            this.age = A;
+        }
+    }
+
+    public String getName() { // Getter
+        return name;
+    }
+
+    public void setName(String N) { // Setter
+        this.name = N;
+    }
+
+    public String getgender() { // Getter
+        return gender;
+    }
+
+    public void setgender(String gender) { // Setter
+        this.gender = gender;
+    }
+
+    public String toString() { // toString which output specific results in string format
+        String result;
+        result = name + " is a " + age + " year old " + gender + " who makes " + salary + " per year ";
+        return result;
+    }
+}
+		
+
+
+
+
+
+
+
