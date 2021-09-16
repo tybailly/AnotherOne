@@ -1,0 +1,97 @@
+#include <iostream>
+using namespace std;
+
+// Hourly conversion based on user input
+
+void hourly ()
+{
+  
+  double rate, q_Reg, q_Dou, deductions, reg_OT, d_OT, hours;
+
+  cout << "Based on over 40 hours worked 1.5 X hourly rate" << endl;
+
+  cout << "Enter base rate ";
+  cin >> rate;
+  reg_OT = rate * 1.5;
+  d_OT = rate * 2;
+
+  cout << "Enter amount of hours worked in one week ";
+  cin >> hours;
+  cout << "Your overtime rate is " << reg_OT <<
+    " and your double time rate is " << d_OT << endl;
+  cout << "How many hours at 1.5 * rate worked? " << endl;
+  cin >> q_Reg;
+  cout << "How many double time hours worked? " << endl;
+  cin >> q_Dou;
+  cout << "Total amount of deductions? " << endl;
+  cin >> deductions;
+
+  cout << "Based on the answers given you made: \n\n$" << reg_OT *
+    q_Reg << " of time in a half!" << endl;
+  cout << "You made $" << d_OT * q_Dou << " of double time!" << endl;
+  cout << "You made a total of $" << (reg_OT * q_Reg) +
+    (d_OT * q_Dou) << " total in overtime pay! " << endl;
+  cout << "You made a gross weekly total of $" << (hours * rate) +
+    (reg_OT * q_Reg) + (d_OT * q_Dou) << "!" << endl;
+  cout << "Based on $" << deductions << " total in deductions, and " << hours
+    << " hours worked" << " you made a net total of $" << (hours * rate) +
+    (reg_OT * q_Reg) + (d_OT * q_Dou) - deductions << endl;
+
+  cout <<
+    "\nBased on information given for income in a week without OT\nyou would gross $"
+    << (rate * 40) * 4 << " in one month \nyou would gross $" << (rate * 40) *
+    52 << " in one year";
+
+}
+
+// Salary conversion based on user input
+
+void salary ()
+{
+  double salary;
+
+
+  cout << "Configured without OT " << endl;
+  cout << "Enter Salary " << endl;
+  cin >> salary;
+  cout << "You make $" << (salary / 12) << " in one month" << endl;
+  cout << "You make $" << (salary / 52) << " in one week" << endl;
+  cout << "You make $" << ((salary / 52)) / 40 << " an hour" << endl;
+
+
+}
+
+// MAIN function and user interface/switch statement 
+
+int main ()
+{
+  string decision;
+
+  cout << "Enter 'H' for Hourly or 'S' for Salary and -1 to quit" << endl;
+  cin >> decision;
+
+  try
+  {
+    if (decision == "H" || decision == "h")
+      {
+	hourly ();
+      }
+    else if (decision == "S" || decision == "s")
+      {
+	salary ();
+      }
+    else if (decision == "-1")
+      {
+	cout << "Goodbye";
+      }
+    else
+      {
+	throw (decision);
+      }
+  }
+  catch ( ...)
+  {
+    cout << "Incorrect input " << endl;
+    main ();
+  }
+}
