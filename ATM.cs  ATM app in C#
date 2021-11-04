@@ -46,7 +46,6 @@ class ATM
 	  {
 	    amount += (int) data[pin];
 	    Console.WriteLine ("Your new balance is $" + amount);
-	    Console.WriteLine ("Now dispensing....");
 	    Console.WriteLine ("This session has now ended....");
 	  }
       }
@@ -67,6 +66,7 @@ class ATM
 
 	    withdraw = (int) data[pin] - withdraw;
 	    Console.WriteLine ("Your new balance is $" + withdraw);
+	    Console.WriteLine ("Now dispensing....");
 	    Console.WriteLine ("This session has now ended....");
 	  }
       }
