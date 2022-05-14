@@ -1,0 +1,212 @@
+#include <iostream>
+#include <random>
+#include <string>
+#include <cstdlib>
+#include <chrono>
+#include <thread>
+
+
+
+
+static std::random_device seeder;
+static std::mt19937 engine(seeder());
+static std::uniform_int_distribution<int> dist(1, 11);
+
+  using namespace std::this_thread; // sleep_for, sleep_until
+  using namespace std::chrono; // nanoseconds, system_clock, seconds
+
+	static int dFinal = 0;
+	static int pFinal = 0;
+	static std::string name;
+
+
+
+int dShuffle(int dCards[2])
+
+{
+	int y = 0, hit = 0;
+
+	while(dCards[0] + dCards[1] + y <= 17)
+	{
+		std::cout << "The dealer decides to hit \n";
+		sleep_until(system_clock::now() + seconds(1));
+		hit = dist(engine);
+		y += hit;
+	}
+
+
+
+	dFinal = y + dCards[0] + dCards[1];
+
+	return 0;
+}
+
+
+
+
+
+
+int pShuffle(int decision, int pCards[])
+{
+	int hit = 0, y = 0,  a;
+
+	while (decision != 2)
+	{
+
+		hit = dist(engine);
+		std::cout << "The dealer hands you a new card..... \n";
+		std::cout << "Your new card is " << hit << "\n";
+		if (hit == 11)
+		{
+			std::cout << "You got an ace... how you want it to be scored?(1 for '11' or 2 for '1')\n";
+			std::cin >> a;
+			if (a == 1)
+			{
+				hit = 11;
+			}
+			else
+			{
+				hit = 1;
+			}
+
+			a = 0;
+		}
+
+		std::cout << "Would you like to hit again? \n";
+		std::cin >> decision;
+		y += hit;
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		if (pCards[i] == 11)
+		{
+		   std::cout << "You got an ace... how you want it to be scored?(1 for '11' or 2 for '1')\n";
+		   std::cin >> a;
+				if (a == 1)
+				{
+					pCards[i] = 11;
+				}
+				else
+				{
+					pCards[i] = 1;
+				}
+
+				a = 0;
+			}
+		}
+
+	
+
+	pFinal = y + pCards[0] + pCards[1];
+
+	return 0;
+}
+
+
+
+int main()
+{
+	int pCards[2] = { dist(engine), dist(engine) };
+	int dCards[2] = { dist(engine), dist(engine) };
+	int decision, decision1;
+	
+	if (name.empty())
+
+	{
+		std::cout << "Enter Player name \n";
+		std::cin >> name;
+		std::cout << "Welcome to the game " << name << " and to the game of 21 \n";
+	}
+	
+	else
+	{
+		std::cout << "Welcome back " << name << std::endl;
+	}
+
+	sleep_until(system_clock::now() + seconds(1));
+
+	std::cout << "Here are your cards ( ace = 1 or 11 ) \n";
+
+
+	for (int i = 0; i < 2; i++)
+	{
+		std::cout << pCards[i] << std::endl;  
+
+	}
+
+	
+
+
+	sleep_until(system_clock::now() + seconds(1));
+
+	std::cout << "It is you turn, press 1 to hit or shout real loud HIT ME!, otherwise press 2 to stay \n";
+	std::cin >> decision;
+
+
+
+	pShuffle(decision, pCards);
+
+	dShuffle(dCards);
+
+	std::cout << "Your final card amount was " << pFinal << "\n";
+	std::cout << "The dealer's final card amount was " << dFinal << "\n";
+
+	if (pFinal % 21 == 0 || 21 % pFinal < 21 % dFinal)
+	{
+		std::cout << "You have won!!!!!!! \n";
+
+	}
+	else if (pFinal > 21 && dFinal < 21)
+	{
+		std::cout << "Ya bust man\n";
+		std::cout << "Da dealer be winning here mane \n";
+	}
+
+	else if (dFinal > 21 && pFinal < 21)
+	{
+		std::cout << "Awww shit the dealer bust\n";
+		std::cout << "That means you won holmes\n";
+	}
+
+	else if (dFinal == 21 && pFinal == 21)
+	{
+		std::cout << "Aww snap you both win!?!?!? hurrrah?!?!?!\n";
+	}
+
+	else if (dFinal > 21 && pFinal > 21)
+
+	{
+		std::cout << "Aww damn yallst bust \n";
+	}
+
+	else if (dFinal == pFinal)
+	{
+		std::cout << "Oh dam fam, yall tied\n";
+	}
+
+
+	else
+	{
+		std::cout << "You have lost \n";
+    }
+
+	std::cout << "play again? (1 for yes 2 for no)\n";
+	std::cin >> decision1;
+
+	if (decision1 == 1)
+	{   
+		std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		main();
+
+	}
+
+	else
+	{
+		std::cout << "Aight\n";
+		system("pause");
+	}
+
+
+
+}
