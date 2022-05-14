@@ -64,7 +64,7 @@ position TEXT NOT NULL
 );
 
 INSERT INTO Havant VALUES (223453,'Gareth','Reynolds','Salary',180000,'Site Manager');
-INSERT INTO Havant VALUES (287638,'Darnell','Blumfuk','Salary',90000,'Sr.Engineer');
+INSERT INTO Havant VALUES (287638,'Darnell','Johnson','Salary',90000,'Sr.Engineer');
 
 -- fetch 
 SELECT name, numberOfLocations from Countries where numberOfLocations > 1
