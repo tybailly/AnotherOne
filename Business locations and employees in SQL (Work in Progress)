@@ -1,0 +1,70 @@
+-- create
+CREATE TABLE Countries (
+  countryId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  numberOfLocations INTEGER
+);
+
+-- insert
+INSERT INTO Countries VALUES (0001, 'USA',40);
+INSERT INTO Countries VALUES (0002, 'CANADA',7);
+INSERT INTO Countries VALUES (0003, 'United Kingdom',1);
+INSERT INTO Countries VALUES (0004, 'Germany',1);
+INSERT INTO Countries VALUES (0005, 'Israel',1);
+INSERT INTO Countries VALUES (0006, 'Australia',2);
+INSERT INTO Countries VALUES (0007, 'India',1);
+INSERT INTO Countries VALUES (0008, 'Chile',1);
+INSERT INTO Countries VALUES (0009, 'Japan',1);
+INSERT INTO Countries VALUES (0010, 'Poland',1);
+INSERT INTO Countries VALUES (0011, 'Puerto Rico',1);
+INSERT INTO Countries VALUES (0012, 'Saudia Arabia',1);
+INSERT INTO Countries VALUES (0013, 'Singapore',1);
+INSERT INTO Countries VALUES (0014, 'Korea',1);
+INSERT INTO Countries VALUES (0015, 'United Arab Emirates',1);
+
+create table USA (
+stateID INTEGER PRIMARY KEY,
+stateName TEXT NOT NULL,
+numberOfEmployees INTEGER
+);
+
+INSERT INTO USA VALUES (0001,'Maryland',2000);
+INSERT INTO USA VALUES (0002,'Texas',1500);
+INSERT INTO USA VALUES (0003,'Florida',1500);
+INSERT INTO USA VALUES (0004,'Colorado',1000);
+INSERT INTO USA VALUES (0005,'California',1000);
+
+create table Canada (
+provinceID INTEGER PRIMARY KEY,
+provinceName TEXT NOT NULL,
+numberOfEmployees INTEGER
+);
+
+INSERT INTO Canada VALUES (0001,'Quebec',1000);
+INSERT INTO Canada VALUES (0002,'Alberta',300);
+INSERT INTO Canada VALUES (0003,'BC',200);
+INSERT INTO Canada VALUES (0004,'Nova Scotia',50);
+
+create table UK (
+ukID INTEGER PRIMARY KEY,
+cityName TEXT NOT NULL,
+numberOfEmployees INTEGER
+);
+
+INSERT INTO UK VALUES (001,'Havant',30);
+
+
+create table Havant (
+employeeID INTEGER PRIMARY KEY,
+firstName TEXT NOT NULL,
+lastName TEXT NOT NULL,
+howPay TEXT NOT NULL,
+pay INTEGER,
+position TEXT NOT NULL
+);
+
+INSERT INTO Havant VALUES (223453,'Gareth','Reynolds','Salary',180000,'Site Manager');
+INSERT INTO Havant VALUES (287638,'Darnell','Blumfuk','Salary',90000,'Sr.Engineer');
+
+-- fetch 
+SELECT name, numberOfLocations from Countries where numberOfLocations > 1
