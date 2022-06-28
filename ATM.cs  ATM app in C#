@@ -214,42 +214,52 @@ Console.WriteLine ("Not an option");
  
 static void authenticationMAIN (int pin)	// Main form of authentication given pin
   {
+      
     
-Hashtable pins = new Hashtable ();
+Hashtable customerPins = new Hashtable ();
     
  
       // Customer pins followed by full namespace
       
-pins.Add (3257, "Dale Hansen");
+customerPins.Add (3257, "Dale Hansen");
     
-pins.Add (1402, "Tyler Han");
+customerPins.Add (1402, "Tyler Han");
     
-pins.Add (5555, "Pat Magown");
+customerPins.Add (5555, "Pat Magown");
     
-pins.Add (8989, "Harry Coxue");
+customerPins.Add (8989, "Harry Coxue");
     
-pins.Add (4532, "Barry Cox");
+customerPins.Add (4532, "Barry Cox");
     
-pins.Add (1234, "Ash Tull");
+customerPins.Add (1234, "Ash Tull");
     
-pins.Add (5746, "Ben Jack");
+customerPins.Add (5746, "Ben Jack");
     
-pins.Add (6969, "Barry McKalister");
+customerPins.Add (6969, "Barry McKalister");
+
+customerPins.Add (6346, "Dixon Mcgregor");
     
-pins.Add (6346, "Dixon Mcgregor");
+customerPins.Add (3579, "Haywood Simpson");
     
-pins.Add (3579, "Haywood Simpson");
-    
-pins.Add (6849, "Jack Hoffner");
-    
+customerPins.Add (6849, "Jack Hoffner");
+
+ int count = 0;
+      
+      while(pin != 0)
+      {
+          pin = pin/10;
+          count++;
+      }
+      
+      Console.WriteLine(count);
  
-if (pins.ContainsKey (pin))
+if (customerPins.ContainsKey (pin))
       
       {
 	
 Console.WriteLine ("This session is encrypted!");
 	
-Console.WriteLine ("Hello {0}", pins[pin]);
+Console.WriteLine ("Hello {0}", customerPins[pin]);
 	
 customerMenu (pin);	// if pin is correct, we go to customerMenu for banking decision.
       
@@ -260,7 +270,7 @@ customerMenu (pin);	// if pin is correct, we go to customerMenu for banking deci
       {
 	
 Console.WriteLine ("That is code is not correct");
-      
+Main();      
 }
   
  
@@ -272,7 +282,7 @@ static void Main ()		// Main screen initial point of contact, only digits 1 thro
 int pin;
     
 Console.WriteLine ("Please type pin now ");
-    
+
 pin = Convert.ToInt32 (Console.ReadLine ());
     
 authenticationMAIN (pin);	// pin sent to authenticationMAIN method to be authenticated
