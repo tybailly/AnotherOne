@@ -266,7 +266,7 @@ Console.WriteLine ("That is code is not correct");
  
 }
   
-static void Main ()		// Main screen initial point of contact, only digits 1 through 9 allowed to be pushed, and only 4 digits at once allowed
+static void Main ()		// Main screen initial point of contact, only digits 1 through 9 allowed to be pushed
   {    
  
 int pin;
