@@ -1,4 +1,5 @@
 
+
  using System;
 
 using System.Collections;
@@ -244,16 +245,19 @@ customerPins.Add (3579, "Haywood Simpson");
 customerPins.Add (6849, "Jack Hoffner");
 
  int count = 0;
+ int countPin;
+
+ countPin = pin;
       
-      while(pin != 0)
+      while(countPin != 0)
       {
-          pin = pin/10;
+          countPin = countPin/10;
           count++;
       }
       
-      Console.WriteLine(count);
+     
  
-if (customerPins.ContainsKey (pin))
+if (customerPins.ContainsKey (pin) && count == 4)
       
       {
 	
@@ -269,7 +273,7 @@ customerMenu (pin);	// if pin is correct, we go to customerMenu for banking deci
       
       {
 	
-Console.WriteLine ("That is code is not correct");
+Console.WriteLine ("Incorrect Pin entered! ");
 Main();      
 }
   
