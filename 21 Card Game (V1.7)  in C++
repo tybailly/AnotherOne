@@ -7,7 +7,9 @@
 
 
 //Created by Tyler Bailly
-//4/2022 
+//V.1 Created 04/2022 
+
+//V.2 started 06/2022
 
 
 
@@ -19,13 +21,60 @@ static std::uniform_int_distribution<int> dist(1, 11);
   using namespace std::this_thread; // sleep_for, sleep_until
   using namespace std::chrono; // nanoseconds, system_clock, seconds
 
-	static int dFinal = 0;
-	static int pFinal = 0;
+	static int dFinal;
+	static int pFinal;
 	static std::string name;
+	static std::string dealers[5] = {"Gary","Ignesh","Jamal","Steven Segal","Bo"};
+	static int AmountOfPlayers;
+	static std::string playerNames[5];
 
 
 
-int dShuffle(int dCards[2])
+void players()
+{
+    int count = 0;
+    
+    std::cout << "Enter how many players will play\n";
+    std::cin >> AmountOfPlayers;
+    
+    if(AmountOfPlayers > 5)
+    {
+        std::cout << "Only up to 5 players \n";
+        players();  
+    }
+    else
+    {
+    
+    
+    for(int i = 0; i < AmountOfPlayers; i++)
+    {
+        count++;
+        std::cout << "Enter Player " << count  << "\n";
+        std::cin >> playerNames[i];
+    }
+    
+    for(int y = 0; y < AmountOfPlayers; y++)
+    {
+        std::cout << "Welcome " << playerNames[y] << std::endl;
+    }
+    
+  
+    
+    }
+    
+}
+
+/*void playerShuffle ()  Each player gets cards 
+{
+ 
+   std::cout << "Hello " << playerNames[0];
+        
+    
+    
+}
+*/
+
+int dDecide(int dCards[2])
 
 {
 	int y = 0, hit = 0;
@@ -38,8 +87,6 @@ int dShuffle(int dCards[2])
 		y += hit;
 	}
 
-
-
 	dFinal = y + dCards[0] + dCards[1];
 
 	return 0;
@@ -50,7 +97,7 @@ int dShuffle(int dCards[2])
 
 
 
-int pShuffle(int decision, int pCards[])
+int pDecide(int decision, int pCards[])
 {
 	int hit = 0, y = 0,  a;
 
@@ -83,7 +130,7 @@ int pShuffle(int decision, int pCards[])
 
 	
 
-	pFinal = y + pCards[0] + pCards[1];
+     pFinal = y + pCards[0] + pCards[1];
 
 	return 0;
 }
@@ -92,23 +139,37 @@ int pShuffle(int decision, int pCards[])
 
 int main()
 {
+    
+    int decide;
+    
+    if(AmountOfPlayers < 1)
+    {
+    players();
+    }
+    else
+    {
+        std::cout << "Are the same players returning to play?";
+        std::cin >> decide;
+        
+        if (decide == 1)
+        {
+            
+        }
+        else
+        {
+            players();
+        }
+    }
+    
+    playerShuffle();
+    
+    
 	int pCards[2] = { dist(engine), dist(engine) };
 	int dCards[2] = { dist(engine), dist(engine) };
-	int decision, decision1;
-	int a;
+	int decision, playAgain;
+	int ace;
 	
-	if (name.empty())
 
-	{
-		std::cout << "Enter Player name \n";
-		std::cin >> name;
-		std::cout << "Welcome to the game " << name << " and to the game of 21\n";
-	}
-	
-	else
-	{
-		std::cout << "Welcome back " << name << std::endl;
-	}
 
 	sleep_until(system_clock::now() + seconds(1));
 
@@ -127,8 +188,8 @@ int main()
 		if (pCards[i] == 11)
 		{
 		   std::cout << "You got an ace... how you want it to be scored?(1 for '11' or 2 for '1')\n";
-		   std::cin >> a;
-				if (a == 1)
+		   std::cin >> ace;
+				if (ace == 1)
 				{
 					pCards[i] = 11;
 				}
@@ -137,7 +198,7 @@ int main()
 					pCards[i] = 1;
 				}
 
-				a = 0;
+				ace = 0;
 			}
 		}
 
@@ -151,9 +212,9 @@ int main()
 
 
 
-	pShuffle(decision, pCards);
+	pDecide(decision, pCards);
 
-	dShuffle(dCards);
+	dDecide(dCards);
 
 	std::cout << "Your final card amount was " << pFinal << "\n";
 	std::cout << "The dealer's final card amount was " << dFinal << "\n";
@@ -163,6 +224,12 @@ int main()
 		std::cout << "You have won!!!!!!! \n";
 
 	}
+	
+	else if(21 % pFinal < 21 % dFinal)
+	{
+	    std::cout << "You have won";
+	}
+
 	else if (pFinal > 21 && dFinal < 21)
 	{
 		std::cout << "You have bust \n";
@@ -198,9 +265,9 @@ int main()
     }
 
 	std::cout << "play again? (1 for yes 2 for no)\n";
-	std::cin >> decision1;
+	std::cin >> playAgain;
 
-	if (decision1 == 1)
+	if (decision == 1)
 	{   
      std::cout << 
       "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -210,7 +277,6 @@ int main()
 	else
 	{
 		std::cout << "Goodbye\n";
-	//	system("pause");
 	}
 
 
