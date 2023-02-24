@@ -53,9 +53,9 @@ import java.util.Scanner;
 
 public class sql {
 
-    final static String url = "jdbc:mysql://localhost:3306/bills";
-    final static String uname = "root";
-    final static String pass = "LtDang3314!";
+    final static String url = "**********";
+    final static String uname = "********";
+    final static String pass = "*********";
     final static Scanner input = new Scanner(System.in);
     final static Scanner inputTWO = new Scanner(System.in);
 
