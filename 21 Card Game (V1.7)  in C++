@@ -64,15 +64,6 @@ void players()
     
 }
 
-/*void playerShuffle ()  Each player gets cards 
-{
- 
-   std::cout << "Hello " << playerNames[0];
-        
-    
-    
-}
-*/
 
 int dDecide(int dCards[2])
 
@@ -161,7 +152,7 @@ int main()
         }
     }
     
-    playerShuffle();
+    
     
     
 	int pCards[2] = { dist(engine), dist(engine) };
