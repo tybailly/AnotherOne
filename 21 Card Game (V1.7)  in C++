@@ -127,7 +127,7 @@ int pDecide(int decision, int pCards[])
 }
 
 
-
+// ** needs way for user to exit game, also had infinite loop issue on certain choices **
 int main()
 {
     
