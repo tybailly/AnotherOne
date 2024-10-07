@@ -34,7 +34,7 @@ void players()
 {
     int count = 0;
     
-    std::cout << "Enter how many players will play\n";
+    std::cout << "Enter how many players will play\n";    // ****No matter how many players, only 1 player plays vs the dealer*****
     std::cin >> AmountOfPlayers;
     
     if(AmountOfPlayers > 5)
